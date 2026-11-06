@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+*$py.class
+node_modules/
+.DS_Store
+*.tmp
+recursos_generados/*
+!recursos_generados/.gitkeep
