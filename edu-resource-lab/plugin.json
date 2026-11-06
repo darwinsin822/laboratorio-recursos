@@ -1,0 +1,22 @@
+{
+  "$schema": "https://antigravity.google/schemas/v1/plugin.json",
+  "name": "edu-resource-lab",
+  "displayName": "Educational Resource Lab",
+  "version": "2.0.0",
+  "description": "Laboratorio didactico que recomienda y genera recursos segun el curso, los guarda en Descargas para clases presenciales y publica en Classroom.",
+  "logo": "assets/logo.svg",
+  "author": "Darwin Pinargote",
+  "license": "Apache-2.0",
+  "keywords": [
+    "educacion",
+    "didactica",
+    "rubrica",
+    "classroom",
+    "veo"
+  ],
+  "suggestedPrompts": [
+    "Ejecuta /generar-clase para recomendarme recursos según mi curso, guardarlos en Descargas y enviarlos a Classroom",
+    "Ejecuta /auditar-rubrica para evaluar la alineación entre mi planificación, el contenido y mi rúbrica",
+    "Recomiéndame qué recursos didácticos crear según el curso de mis estudiantes y el contenido de mi Notebook"
+  ]
+}

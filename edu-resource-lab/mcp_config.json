@@ -1,0 +1,32 @@
+{
+  "mcpServers": {
+    "lab-studio": {
+      "command": "node",
+      "args": [
+        "${PLUGIN_ROOT}/scripts/media_and_downloads_mcp.mjs"
+      ],
+      "timeoutSeconds": 600,
+      "variables": {
+        "GEMINI_API_KEY": {
+          "description": "API key for Gemini models (Nano Banana 2.1, Veo 3.1)",
+          "required": false
+        },
+        "GOOGLE_CLOUD_PROJECT": {
+          "description": "Google Cloud Project ID for Text-to-Speech and Veo services",
+          "required": false
+        },
+        "CUSTOM_DOWNLOADS_DIR": {
+          "description": "Custom path for classroom downloads output folder",
+          "required": false
+        }
+      }
+    },
+    "notebooklm": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "notebooklm-mcp@latest"
+      ]
+    }
+  }
+}

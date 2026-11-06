@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" fill="none">
+  <defs>
+    <linearGradient id="grad-bg" x1="28" y1="28" x2="228" y2="228" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#4F46E5" />
+      <stop offset="50%" stop-color="#7C3AED" />
+      <stop offset="100%" stop-color="#06B6D4" />
+    </linearGradient>
+    <linearGradient id="grad-flask" x1="80" y1="70" x2="176" y2="190" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#E0E7FF" stop-opacity="0.8" />
+    </linearGradient>
+    <linearGradient id="grad-liquid" x1="90" y1="130" x2="166" y2="185" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#6366F1" />
+    </linearGradient>
+    <filter id="glow" x="10" y="10" width="236" height="236" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#4338CA" flood-opacity="0.35" />
+    </filter>
+  </defs>
+
+  <!-- Background rounded canvas (with 10% outer padding) -->
+  <rect x="26" y="26" width="204" height="204" rx="44" fill="url(#grad-bg)" filter="url(#glow)" />
+
+  <!-- Educational Lab Flask & Open Book Graphic -->
+  <!-- Laboratory Flask Outline -->
+  <path d="M116 70V96L84 154C78 165 86 178 98 178H158C170 178 178 165 172 154L140 96V70H116Z" fill="url(#grad-flask)" />
+  <!-- Liquid in Flask -->
+  <path d="M94 148L84 166C82 170 85 174 89 174H167C171 174 174 170 172 166L162 148C154 152 142 146 128 149C114 152 102 144 94 148Z" fill="url(#grad-liquid)" />
+  
+  <!-- Flask Lip -->
+  <rect x="110" y="64" width="36" height="8" rx="4" fill="#FFFFFF" />
+
+  <!-- Bubbles & Sparkles -->
+  <circle cx="118" cy="136" r="4" fill="#FFFFFF" opacity="0.9" />
+  <circle cx="138" cy="122" r="5" fill="#FFFFFF" opacity="0.9" />
+  <circle cx="130" cy="144" r="3" fill="#FFFFFF" opacity="0.8" />
+
+  <!-- Stars / Innovation Sparkles -->
+  <path d="M178 68L181 77L190 80L181 83L178 92L175 83L166 80L175 77Z" fill="#FACC15" />
+  <path d="M76 100L78 106L84 108L78 110L76 116L74 110L68 108L74 106Z" fill="#38BDF8" />
+
+  <!-- Open Book Base Foundation -->
+  <path d="M68 184C86 178 110 180 128 188C146 180 170 178 188 184V202C170 196 146 198 128 206C110 198 86 196 68 202V184Z" fill="#FFFFFF" />
+  <line x1="128" y1="188" x2="128" y2="206" stroke="#C7D2FE" stroke-width="2" />
+</svg>

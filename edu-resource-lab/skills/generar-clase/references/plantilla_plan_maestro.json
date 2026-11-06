@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PlantillaPlanMaestroClase",
+  "type": "object",
+  "properties": {
+    "tema": { "type": "string" },
+    "curso": { "type": "string" },
+    "duracionMinutos": { "type": "number", "default": 80 },
+    "objetivoAprendizaje": { "type": "string" },
+    "secuencia": {
+      "type": "object",
+      "properties": {
+        "inicio": {
+          "type": "object",
+          "properties": {
+            "tiempoMinutos": { "type": "number", "default": 15 },
+            "actividad": { "type": "string" },
+            "recursoAsociado": { "type": "string" }
+          }
+        },
+        "desarrollo": {
+          "type": "object",
+          "properties": {
+            "tiempoMinutos": { "type": "number", "default": 45 },
+            "actividad": { "type": "string" },
+            "recursoAsociado": { "type": "string" }
+          }
+        },
+        "cierre": {
+          "type": "object",
+          "properties": {
+            "tiempoMinutos": { "type": "number", "default": 20 },
+            "actividad": { "type": "string" },
+            "recursoAsociado": { "type": "string" }
+          }
+        }
+      }
+    },
+    "recursosSeleccionados": {
+      "type": "array",
+      "items": { "type": "number" }
+    },
+    "rubrica": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "criterio": { "type": "string" },
+          "ponderacion": { "type": "number" },
+          "descriptores": { "type": "string" }
+        }
+      }
+    }
+  }
+}

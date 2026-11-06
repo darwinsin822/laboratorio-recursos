@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "pedagogical-quality-gate": {
+      "enabled": true,
+      "Stop": [
+        {
+          "type": "command",
+          "command": "node ./scripts/verify_rubric_coverage.mjs",
+          "timeout": 15
+        }
+      ]
+    }
+  }
+}
