@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "institucion": "Unidad Educativa Particular Santa María de los Ángeles (UESMA)",
+  "periodo_lectivo": "2026-2027",
+  "taxonomia": {
+    "niveles_bloom": [
+      {"nivel": 1, "nombre": "Recordar", "verbos": ["identificar", "definir", "listar", "reconocer"]},
+      {"nivel": 2, "nombre": "Comprender", "verbos": ["explicar", "describir", "resumir", "clasificar"]},
+      {"nivel": 3, "nombre": "Aplicar", "verbos": ["resolver", "calcular", "implementar", "demostrar"]},
+      {"nivel": 4, "nombre": "Analizar", "verbos": ["comparar", "contrastar", "diferenciar", "desglosar"]},
+      {"nivel": 5, "nombre": "Evaluar", "verbos": ["justificar", "criticar", "validar", "auditar"]},
+      {"nivel": 6, "nombre": "Crear", "verbos": ["diseñar", "construir", "producir", "planificar"]}
+    ]
+  },
+  "escalas_calificacion": {
+    "cuantitativa": {"min": 0.0, "max": 10.0, "base_aprobacion": 7.0},
+    "cualitativa": {
+      "DAR": {"rango": [9.0, 10.0], "descripcion": "Domina los Aprendizajes Requeridos"},
+      "AAR": {"rango": [7.0, 8.99], "descripcion": "Alcanza los Aprendizajes Requeridos"},
+      "PAAR": {"rango": [4.01, 6.99], "descripcion": "Próximo a Alcanzar los Aprendizajes Requeridos"},
+      "NAAR": {"rango": [0.0, 4.0], "descripcion": "No Alcanza los Aprendizajes Requeridos"}
+    }
+  }
+}

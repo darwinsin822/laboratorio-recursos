@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador Didáctico Interactivo Offline — UESMA</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --accent: #38bdf8;
+      --text: #f8fafc;
+      --subtext: #94a3b8;
+      --success: #22c55e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+    body { background: var(--bg); color: var(--text); padding: 24px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+    .header { text-align: center; margin-bottom: 24px; }
+    .header h1 { font-size: 1.8rem; color: var(--accent); margin-bottom: 8px; }
+    .header p { color: var(--subtext); font-size: 0.95rem; }
+    .badge { display: inline-block; background: #0369a1; color: white; padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; margin-top: 6px; }
+    .canvas-container { background: var(--card); border: 2px solid #334155; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); overflow: hidden; }
+    canvas { display: block; }
+    .controls { margin-top: 20px; display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; max-width: 650px; }
+    .btn { background: var(--accent); color: #0f172a; border: none; font-weight: 700; padding: 10px 20px; border-radius: 8px; cursor: pointer; transition: 0.2s; }
+    .btn:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-secondary { background: #334155; color: var(--text); }
+    .metric { margin-top: 14px; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 8px; padding: 10px 16px; font-size: 0.9rem; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <span class="badge">100% Offline — Aula Presencial UESMA</span>
+    <h1 id="titulo-simulador">Simulador Didáctico Interactivo</h1>
+    <p id="desc-simulador">Interactúa en tiempo real con los parámetros pedagógicos</p>
+  </div>
+  <div class="canvas-container">
+    <canvas id="stage" width="640" height="360"></canvas>
+  </div>
+  <div class="controls">
+    <button class="btn" id="btn-anim">Pausar / Reanudar</button>
+    <button class="btn btn-secondary" id="btn-reset">Reiniciar Experimento</button>
+  </div>
+  <div class="metric" id="status-box">
+    Estado: Sistema en equilibrio | Frecuencia: 60 FPS
+  </div>
+  <script>
+    const canvas = document.getElementById('stage');
+    const ctx = canvas.getContext('2d');
+    let running = true;
+    let t = 0;
+
+    function draw() {
+      ctx.fillStyle = '#1e293b';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Grid
+      ctx.strokeStyle = '#334155';
+      ctx.lineWidth = 1;
+      for (let x = 0; x < canvas.width; x += 40) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
+      }
+      for (let y = 0; y < canvas.height; y += 40) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
+      }
+
+      // Dynamic wave / particle system
+      ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      for (let x = 0; x < canvas.width; x++) {
+        const y = canvas.height / 2 + Math.sin((x + t * 4) * 0.03) * 60 * Math.sin(t * 0.02);
+        if (x === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+
+      // Node marker
+      const px = (t * 3) % canvas.width;
+      const py = canvas.height / 2 + Math.sin((px + t * 4) * 0.03) * 60 * Math.sin(t * 0.02);
+      ctx.fillStyle = '#22c55e';
+      ctx.beginPath();
+      ctx.arc(px, py, 9, 0, Math.PI * 2);
+      ctx.fill();
+
+      if (running) {
+        t += 1;
+        requestAnimationFrame(draw);
+      }
+    }
+
+    document.getElementById('btn-anim').addEventListener('click', () => {
+      running = !running;
+      if (running) draw();
+      document.getElementById('status-box').innerText = running ? 'Estado: Simulación en ejecución activa' : 'Estado: Pausado para explicación docente';
+    });
+    document.getElementById('btn-reset').addEventListener('click', () => {
+      t = 0;
+      if (!running) { running = true; draw(); }
+    });
+
+    draw();
+  </script>
+</body>
+</html>

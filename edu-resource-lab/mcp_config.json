@@ -25,7 +25,8 @@
       "command": "npx",
       "args": [
         "-y",
-        "notebooklm-mcp@latest"
+        "@m4ykeldev/notebooklm-mcp@latest",
+        "serve"
       ]
     }
   }
