@@ -452,7 +452,8 @@ def descargar_video_educativo(url: str, destino_dir: Path, prefijo: str = "video
     cmd = [
         yt_dlp_bin,
         "--js-runtimes", "node:/home/darwinsin/.local/bin/node",
-        "-f", "b[ext=mp4]/best[ext=mp4]/best",
+        "-f", "bv*[vcodec^=avc]+ba[ext=m4a]/bv*+ba/b",
+        "--merge-output-format", "mp4",
         "-o", out_template,
         url
     ]
