@@ -406,6 +406,61 @@ def auditar_cobertura_rubrica(rubrica_items: list, recursos_ids: list) -> dict:
         "observaciones": fallos if fallos else ["Secuencia didáctica 100% equilibrada y psicométricamente completa."]
     }
 
+def buscar_videos_educativos(tema: str, curso: str = "", max_resultados: int = 3) -> list:
+    """Busca videos estrictamente educativos en YouTube mediante yt-dlp."""
+    import subprocess
+    yt_dlp_bin = "/home/darwinsin/.local/bin/yt-dlp"
+    if not Path(yt_dlp_bin).exists():
+        yt_dlp_bin = "yt-dlp"
+    
+    query = f"ytsearch{max_resultados}:{tema} {curso} clase explicacion educativa"
+    cmd = [
+        yt_dlp_bin,
+        "--js-runtimes", "node:/home/darwinsin/.local/bin/node",
+        "--no-playlist",
+        "--print", "%(title)s\t%(id)s\t%(duration_string)s\t%(webpage_url)s\t%(channel)s",
+        query
+    ]
+    try:
+        proc = subprocess.run(cmd, capture_output=True, text=True, check=True)
+        videos = []
+        for line in proc.stdout.strip().split("\n"):
+            if not line.strip():
+                continue
+            parts = line.split("\t")
+            if len(parts) >= 4:
+                videos.append({
+                    "titulo": parts[0],
+                    "id": parts[1],
+                    "duracion": parts[2],
+                    "url": parts[3],
+                    "canal": parts[4] if len(parts) > 4 else "Desconocido"
+                })
+        return videos
+    except Exception as e:
+        return [{"error": str(e)}]
+
+def descargar_video_educativo(url: str, destino_dir: Path, prefijo: str = "video_educativo") -> Path:
+    """Descarga un video educativo de YouTube en formato MP4 usando yt-dlp."""
+    import subprocess
+    yt_dlp_bin = "/home/darwinsin/.local/bin/yt-dlp"
+    if not Path(yt_dlp_bin).exists():
+        yt_dlp_bin = "yt-dlp"
+        
+    destino_dir.mkdir(parents=True, exist_ok=True)
+    out_template = str(destino_dir / f"{prefijo}_%(title).50s.%(ext)s")
+    cmd = [
+        yt_dlp_bin,
+        "--js-runtimes", "node:/home/darwinsin/.local/bin/node",
+        "-f", "b[ext=mp4]/best[ext=mp4]/best",
+        "-o", out_template,
+        url
+    ]
+    subprocess.run(cmd, check=True, capture_output=True, text=True)
+    for f in destino_dir.glob(f"{prefijo}_*"):
+        return f
+    return destino_dir
+
 def main():
     parser = argparse.ArgumentParser(description="Laboratorio de Recursos Educativos UESMA 2026-2027 (Motor ZEUS)")
     parser.add_argument("--diagnosticar", action="store_true", help="Diagnostica idoneidad pedagógica según curso y tema")
@@ -416,6 +471,8 @@ def main():
     parser.add_argument("--auditar", action="store_true", help="Audita la cobertura de rúbrica")
     parser.add_argument("--listar", action="store_true", help="Lista el catálogo de recursos didácticos")
     parser.add_argument("--oraculo", action="store_true", help="Ejecuta el oráculo determinista de verificación de calidad")
+    parser.add_argument("--buscar-video", action="store_true", help="Busca videos educativos en YouTube sobre el tema")
+    parser.add_argument("--descargar-video", type=str, help="Descarga un video educativo de YouTube por su URL a Descargas")
     
     args = parser.parse_args()
 
@@ -476,6 +533,25 @@ def main():
         print("\n⚡ EJECUTANDO ORÁCULO DETERMINISTA DE ZEUS...")
         # Correr test determinista
         sys.exit(0)
+
+    if args.buscar_video:
+        print(f"\n🔍 Buscando videos netamente educativos sobre: '{args.tema}' ({args.curso})...")
+        videos = buscar_videos_educativos(args.tema, args.curso)
+        for i, v in enumerate(videos, 1):
+            if "error" in v:
+                print(f"  Error: {v['error']}")
+            else:
+                print(f"\n[{i}] {v['titulo']}")
+                print(f"    Canal: {v['canal']} | Duración: {v['duracion']}")
+                print(f"    URL: {v['url']}")
+        return
+
+    if args.descargar_video:
+        print(f"\n⬇️ Descargando video educativo: {args.descargar_video}...")
+        target_dir = DESCARGAS_DIR
+        archivo = descargar_video_educativo(args.descargar_video, target_dir)
+        print(f"✓ Video descargado con éxito en: {archivo}")
+        return
 
     parser.print_help()
 
