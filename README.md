@@ -20,7 +20,8 @@
 - **Doble Modalidad (Presencial + Virtual):**
   - **Presencial (Offline-First):** Empaqueta todos los materiales en `~/Descargas/Lab_Didactico_[Curso]_[Tema]_[Fecha]/` con una guía minuto a minuto (`00_GUIA_DOCENTE_PRESENCIAL.md`).
   - **Virtual:** Despliegue en Google Classroom como Tarea con rúbrica, Material de clase o Borrador.
-- **Integración NotebookLM:** Cuadernos sincronizados para responder dudas con fuentes verificadas y generar podcast didácticos.
+- **Integración NotebookLM & LearnLM:** Cuadernos sincronizados en la nube para responder dudas con fuentes verificadas, generar Slide Decks, Audio Overviews y tarjetas interactivas adaptativas estilo Google Learn About.
+- **Buscador y Descargador de Vídeos Educativos:** Búsqueda filtrada en YouTube de contenido pedagógico y descarga con multiplexación automática H.264 (vídeo) + AAC estéreo (audio) mediante `yt-dlp` y `ffmpeg` para garantizar compatibilidad universal con VLC y proyectores.
 
 ---
 
@@ -58,6 +59,12 @@ python3 recursos.py --generar --recursos "1,2,3,5" --curso "1ro de Bachillerato"
 
 # 3. Auditar cobertura de rúbrica
 python3 recursos.py --auditar
+
+# 4. Buscar vídeos educativos en YouTube
+python3 recursos.py --tema "La Historieta" --curso "7mo EGB" --buscar-video
+
+# 5. Descargar vídeo educativo multiplexado (H.264 + AAC) a ~/Descargas
+python3 recursos.py --descargar-video "https://www.youtube.com/watch?v=Och3dERgBbI"
 ```
 
 ### Slash Command en Antigravity
